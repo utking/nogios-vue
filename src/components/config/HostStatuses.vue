@@ -7,7 +7,6 @@
 
 <script>
 
-import axios from 'axios'
 import StatusList from '@/components/config/common/StatuseList'
 
 export default {
@@ -19,8 +18,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/hosts/api/statuses')
+    this.$http
+        .get(`${this.$apiBaseURL}/hosts/api/statuses`)
         .then(response => {
           this.items = response.data.items
         })

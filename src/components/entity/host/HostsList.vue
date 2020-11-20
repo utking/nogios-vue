@@ -7,7 +7,6 @@
 
 <script>
 
-import axios from 'axios'
 import HostList from '@/components/entity/host/common/HostList'
 
 export default {
@@ -19,8 +18,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/hosts/api')
+    this.$http
+        .get(`${this.$apiBaseURL}/hosts/api`)
         .then(response => {
           this.items = response.data.items
         })

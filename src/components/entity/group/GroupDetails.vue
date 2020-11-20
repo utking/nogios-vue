@@ -24,8 +24,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'UserDetails',
   data: function () {
@@ -34,8 +32,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/contacts/api/group/' + this.$route.params.group)
+    this.$http
+        .get(`${this.$apiBaseURL}/contacts/api/group/${this.$route.params.group}`)
         .then(response => {
           this.item = response.data.item
         })

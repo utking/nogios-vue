@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 import ServiceStatusList from '@/components/status/common/ServiceStatusList'
 
 export default {
@@ -21,8 +21,8 @@ export default {
   },
   methods: {
     loadData: function () {
-      axios
-          .get('http://127.0.0.1:8000/status/api/services')
+      this.$http
+          .get(`${this.$apiBaseURL}/status/api/services`)
           .then(response => {
             this.items = response.data.items
           })

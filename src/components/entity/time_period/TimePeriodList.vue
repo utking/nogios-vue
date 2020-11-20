@@ -27,8 +27,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'TimePeriodList',
   data: function () {
@@ -37,8 +35,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/time_periods/api')
+    this.$http
+        .get(`${this.$apiBaseURL}/time_periods/api`)
         .then(response => {
           this.items = response.data.items
         })

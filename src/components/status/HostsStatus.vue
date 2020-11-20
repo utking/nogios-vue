@@ -67,8 +67,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'HostsStatus',
   data: function () {
@@ -78,8 +76,8 @@ export default {
   },
   methods: {
     loadData: function () {
-      axios
-          .get('http://127.0.0.1:8000/status/api/hosts')
+      this.$http
+          .get(`${this.$apiBaseURL}/status/api/hosts`)
           .then(response => {
             this.items = response.data.items
           })

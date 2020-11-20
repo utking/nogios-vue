@@ -81,8 +81,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'CommandDetails',
   data: function () {
@@ -95,8 +93,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/hosts/api/view/' + this.$route.params.host)
+    this.$http
+        .get(`${this.$apiBaseURL}/hosts/api/view/${this.$route.params.host}`)
         .then(response => {
           this.item = response.data.item
         })
