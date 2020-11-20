@@ -31,8 +31,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'UserList',
   data: function () {
@@ -41,8 +39,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/contacts/api/users')
+    this.$http
+        .get(`${this.$apiBaseURL}/contacts/api/users`)
         .then(response => {
           this.items = response.data.items
         })

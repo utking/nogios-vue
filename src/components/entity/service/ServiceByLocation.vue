@@ -7,7 +7,6 @@
 
 <script>
 
-import axios from 'axios'
 import ServiceList from '@/components/entity/service/common/ServiceList'
 
 export default {
@@ -19,8 +18,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/services/api/location/' + this.$route.params.location)
+    this.$http
+        .get(`${this.$apiBaseURL}/services/api/location/${this.$route.params.location}`)
         .then(response => {
           this.items = response.data.items
         })

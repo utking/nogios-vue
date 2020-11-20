@@ -32,8 +32,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'CommandDetails',
   data: function () {
@@ -42,8 +40,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/time_periods/api/view/' + this.$route.params.period)
+    this.$http
+        .get(`${this.$apiBaseURL}/time_periods/api/view/${this.$route.params.period}`)
         .then(response => {
           this.item = response.data.item
         })

@@ -56,8 +56,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'ServicesList',
   data: function () {
@@ -66,8 +64,8 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/services/api')
+    this.$http
+        .get(`${this.$apiBaseURL}/services/api`)
         .then(response => {
           this.items = response.data.items
         })

@@ -36,8 +36,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'ConfigReloader',
   mounted() {
@@ -48,8 +46,8 @@ export default {
             const entity = el.target.id;
             if (entity) {
               info_block.innerText = 'Start reloading ' + entity + ' ...';
-              axios
-                  .get('http://127.0.0.1:8000/' + entity + '/api/reload_config')
+              this.$http
+                  .get(`${this.$apiBaseURL}/${entity}/api/reload_config`)
                   .then(resp => {
                     info_block.innerText = 'Reloading ' + entity + ' completed' + "\n" + JSON.stringify(resp.data);
                   })

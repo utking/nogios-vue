@@ -27,8 +27,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
   name: 'GroupList',
   data: function () {
@@ -37,8 +35,9 @@ export default {
     }
   },
   mounted() {
-    axios
-        .get('http://127.0.0.1:8000/commands/api')
+    this.$http
+    this.$http
+        .get(`${this.$apiBaseURL}/commands/api`)
         .then(response => {
           this.items = response.data.items
         })
