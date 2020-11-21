@@ -4,7 +4,8 @@
       <router-link :to="'/status/host-services/' + host">{{ host }}</router-link>::{{ service }} status history
     </h3>
 
-    <ItemHistoryToolbar :host_name="host" :service_name="service" :ack="ack" :down="down" />
+    <ItemHistoryToolbar :host_name="host" :service_name="service"
+                        :ack="ack" :down="down"  @refreshItem="loadData()" />
 
     <ServicesStatusHistory :items="items" />
   </div>

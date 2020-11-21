@@ -73,8 +73,8 @@ export default {
             host_name,
             name
           })
-          .then(response => {
-            this.ack = response.data.ack
+          .then(() => {
+            this.$emit('refreshItem');
           })
           .catch(error => {
             console.log(error)
@@ -84,22 +84,25 @@ export default {
     },
     downService: function () {
       const formRefs = this.$refs
-      console.log(formRefs, formRefs.host_name, formRefs.service, formRefs.info, formRefs.started_at, formRefs.expires_at)
       const host_name = formRefs.host_name.value
       const name = formRefs.service.value
       const info = formRefs.info.value
       const started_at = formRefs.started_at.value
       const expires_at = formRefs.expires_at.value
+      let status_for = 'service'
+      if (this.service_name === 'host') {
+        status_for = 'host'
+      }
       this.$http
-          .post(`${this.$apiBaseURL}/status/api/service/down`, {
+          .post(`${this.$apiBaseURL}/status/api/${status_for}/down`, {
             host_name,
             name,
             info,
             started_at,
             expires_at
           })
-          .then(response => {
-            this.down = response.data.down
+          .then(() => {
+            this.$emit('refreshItem');
           })
           .catch(error => {
             console.log(error)
