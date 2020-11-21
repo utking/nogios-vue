@@ -4,7 +4,8 @@
       <span v-if="host_name">for {{ host_name }} (<router-link to="/status/hosts">all hosts</router-link>)</span>
     </h3>
 
-    <ItemHistoryToolbar :host_name="host_name" service_name="host" :ack="ack" :down="down"/>
+    <ItemHistoryToolbar :host_name="host_name" service_name="host"
+                        :ack="ack" :down="down" @refreshItem="loadData()"/>
 
     <ServicesStatusHistory :items="items" hide_ret_code="true"/>
   </div>
