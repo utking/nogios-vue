@@ -9,6 +9,7 @@
       <th>Status information</th>
       <th class="duration-col">Duration</th>
       <th class="datetime-col">Last check</th>
+      <th class="action-col">#</th>
     </tr>
     </thead>
     <tbody>
@@ -63,6 +64,15 @@
           </template>
         </td>
         <td>{{ service.executed_at }}</td>
+        <td>
+          <a class="refresh-button" :data-host-name="name"
+             @click="check_service(name, service.name)"
+             title="Re-check immediately">
+            <span>
+              <i class="fas fa-sync" aria-hidden="true"></i>
+            </span>
+          </a>
+        </td>
       </tr>
     </template>
     </tbody>
@@ -73,13 +83,30 @@
 
 export default {
   name: 'ServiceStatusList',
-  props: ['items']
+  props: ['items'],
+  methods: {
+    check_service: function (host_name, service_name) {
+      this.$http
+          .post(`${this.$apiBaseURL}/runners/api/run-service-check`, {
+            host_name,
+            service_name
+          })
+          .catch(error => {
+            console.log(error)
+            this.errored = true
+          })
+          .finally(() => this.loading = false)
+    }
+  }
 }
 </script>
 
 <style scoped >
 table th.id-col {
   width: 3em;
+}
+table th.action-col {
+  width: 2em;
 }
 table tr td.col-status-OK {
   /* background: #7FFF00; */

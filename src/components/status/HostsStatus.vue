@@ -12,6 +12,7 @@
         <th class="status-col">Status</th>
         <th>Output</th>
         <th class="datetime-col">Check Date/Time</th>
+        <th class="action-col">#</th>
       </tr>
       </thead>
       <tbody>
@@ -59,6 +60,15 @@
           <span :title="item.output">{{ item.output }}</span>
         </td>
         <td>{{ item.executed_at }}</td>
+        <td>
+          <a class="refresh-button" :data-host-name="item.host_name"
+             @click="check_host(item.host_name)"
+             title="Re-check immediately">
+            <span>
+              <i class="fas fa-sync" aria-hidden="true"></i>
+            </span>
+          </a>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -75,6 +85,17 @@ export default {
     }
   },
   methods: {
+    check_host: function (host_name) {
+      this.$http
+          .post(`${this.$apiBaseURL}/runners/api/run-host-check`, {
+            host_name
+          })
+          .catch(error => {
+            console.log(error)
+            this.errored = true
+          })
+          .finally(() => this.loading = false)
+    },
     loadData: function () {
       this.$http
           .get(`${this.$apiBaseURL}/status/api/hosts`)
@@ -104,6 +125,9 @@ export default {
 <style scoped>
 table th.id-col {
   width: 3em;
+}
+table th.action-col {
+  width: 2em;
 }
 table tr td.col-status-UP {
   /* background: #7FFF00; */
